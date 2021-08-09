@@ -1,16 +1,19 @@
 import 'reflect-metadata';
-import 'express-async-errors';
 import express, {NextFunction, Request, Response} from 'express';
+import 'express-async-errors';
 import '../container';
 import '../database';
 import { AppError } from '../errors/AppError';
 import router from './routes';
+import createConnection from '../database';
+
+createConnection().then(() => {console.log("Database online!")});
 
 const app = express();
 
 app.use(express.json());
 
-app.use(router);
+app.use( '/cpf', router);
 
 app.use(
   (err: Error, request: Request, response: Response, next: NextFunction) => {

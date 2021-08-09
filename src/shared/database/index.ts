@@ -1,1 +1,15 @@
-/* here goes all the codes of your database, like migrations, sqlite files, connections to the database etc */
+import {Connection, createConnection, getConnectionOptions} from 'typeorm';
+
+export default async (host = 'localhost'): Promise<Connection> => {
+  const defaultOptions = await getConnectionOptions();
+
+  return createConnection(
+    Object.assign(defaultOptions, {
+      host: process.env.NODE_ENV === 'test' ? 'localhost' : host,
+      database:
+        process.env.NODE_ENV === 'test'
+          ? 'bookstore_test'
+          : defaultOptions.database,
+    })
+  );
+};

@@ -1,1 +1,0 @@
-/* here goes all the entities that you'll use in this modules */

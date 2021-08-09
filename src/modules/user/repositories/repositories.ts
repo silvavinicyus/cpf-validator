@@ -1,1 +1,0 @@
-/* here goes all the interfaces that your repositories will implement */

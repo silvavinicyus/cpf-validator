@@ -1,1 +1,8 @@
-/* here goes your containers, or anything that you whant to be build only once, like your entities repositorys etc. */
+import { container } from "tsyringe";
+import ValidatorRepository from "../../modules/validator/repositories/implementations/ValidatorRepository";
+import { IValidatorRepository } from "../../modules/validator/repositories/IValidatorRepository";
+
+container.registerSingleton<IValidatorRepository> (
+  'ValidatorRepository',
+  ValidatorRepository
+);

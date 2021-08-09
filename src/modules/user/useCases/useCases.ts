@@ -1,1 +1,0 @@
-/* here goes your controllers and useCases, the core of the application */
