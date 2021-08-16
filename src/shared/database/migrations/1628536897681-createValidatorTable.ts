@@ -12,8 +12,7 @@ export class createValidatorTable1628536897681 implements MigrationInterface {
           },
           {
             name: 'cpf',
-            type: 'varchar',
-            isUnique: true
+            type: 'varchar'            
           },
           {
             name: 'description',

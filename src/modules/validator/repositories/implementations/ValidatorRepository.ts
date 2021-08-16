@@ -10,10 +10,14 @@ export default class ValidatorRepository implements IValidatorRepository {
     this.repository = getRepository(Validator);
   }
 
-  async deleteByCpf({ cpf }: ICreateValidationDTO): Promise<void> {
-    const vali = await this.repository.findOne({cpf});
+  async findByCpfs({ cpf }: ICreateValidationDTO): Promise<Validator[]> {
+    const vali = await this.repository.find({ cpf });
 
-    await this.repository.remove(vali);
+    return vali;
+  }
+
+  async deleteByCpf({ cpf }: ICreateValidationDTO): Promise<void> {
+    await this.repository.query(`delete from validator where cpf = '${cpf}'`);
   }
 
   async findAll(): Promise<Validator[]> {

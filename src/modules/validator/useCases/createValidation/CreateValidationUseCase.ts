@@ -11,13 +11,7 @@ export default class CreateValidationUseCase {
     private validatorRepository: IValidatorRepository
   ){}
 
-  async execute({cpf}: ICreateValidationDTO): Promise<Validator>{
-    const validationExists = await this.validatorRepository.findByCpf({cpf});    
-
-    if (validationExists) {
-      return validationExists;
-    }    
-
+  async execute({cpf}: ICreateValidationDTO): Promise<Validator>{  
     const valid = cpfValidator.isValid(cpf);    
 
     const validation = await this.validatorRepository.create({

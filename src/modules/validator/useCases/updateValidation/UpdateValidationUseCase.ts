@@ -11,19 +11,22 @@ export default class UpdateValidationUseCase {
     private validatorRepository: IValidatorRepository
   ){}
 
-  async execute({cpf, description}: ICreateValidationDTO): Promise<Validator> {
-    const cpfExists = await this.validatorRepository.findByCpf({cpf});
+  async execute({cpf, description}: ICreateValidationDTO): Promise<Validator[]> {
+    const cpfExists = await this.validatorRepository.findByCpfs({cpf});
 
-    if (!cpfExists) {
+    if (cpfExists.length <= 0) {
       throw new AppError("There is no validation with the given id");
-    }
+    }    
 
-    Object.assign(cpfExists, {
-      description,
+    cpfExists.forEach(async (value) => {
+      Object.assign(value, {
+        description
+      });
+
+      await this.validatorRepository.create(value)
     })
+    
 
-    const vali = await this.validatorRepository.create(cpfExists);
-
-    return vali;
+    return cpfExists;
   }
 }

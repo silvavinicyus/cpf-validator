@@ -11,14 +11,13 @@ export default class GetValdationUseCase {
     private validatorRepository: IValidatorRepository
   ){}
 
-  async execute({cpf}: ICreateValidationDTO): Promise <Validator> {
-    const validator = await this.validatorRepository.findByCpf({cpf});    
+  async execute({cpf}: ICreateValidationDTO): Promise <Validator[]> {
+    const validators = await this.validatorRepository.findByCpfs({cpf});    
 
-    if (!validator) {     
+    if (validators.length == 0) {     
       throw new AppError("There is no validation with the given cpf");      
     }
 
-    return validator;
+    return validators;
   }
-
 }
